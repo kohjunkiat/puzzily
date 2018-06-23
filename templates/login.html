@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <div class="container">
+    <h2>Log In</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+ 	<a href="#" class="text-muted">Forgot your password?</a>
+  </div>
+{% endblock %}

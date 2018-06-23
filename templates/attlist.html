@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Attendance</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Student ID</th>
+        {% for session in sessions %}
+        <th>{{session.date}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+	<tbody>
+      {% for student in students %}
+      <tr>
+        <td>
+          {{student.nusid}}
+        </td>
+        {% for session in sessions %}
+        <td class="align-middle">0</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Search</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>Tutorial Group</th>
+        <th>Sessions</th>
+        <th>Students</th>
+        <th><div class="search-container">
+    <form action="{% url 'search' %}" method='get'>
+      {% csrf_token %}
+      <input type="text" placeholder="Search" name="query">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tutorial in tutorials %}
+      <tr>
+        <td>
+          <a href="{% url 'attlist' tutorial.group %}">{{ tutorial.group}}</a>
+          <small class="text-muted d-block">{{tutorial.module}}
+          </small>
+        </td>
+        <td class="align-middle">{{ tutorial.get_sessions_count }}</td>
+        <td class="align-middle">{{ tutorial.get_students_count }}</td>
+        <td></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
