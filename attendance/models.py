@@ -22,16 +22,6 @@ class Student(models.Model):
 	def __str__(self):
 		return self.nusid
 
-	def get_attendance(self):
-		try:
-			attendance = Attendance.objects.get(student=self)
-			if attendance.attended == True:
-				return 1
-			else:
-				return 0
-		except Attendance.DoesNotExist:
-			return 0
-
 class Session(models.Model):
 	date = models.DateTimeField()
 	tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)

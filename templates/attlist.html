@@ -2,8 +2,8 @@
 
 {% block breadcrumb %}
   <li class="breadcrumb-item active"><a href="{% url 'home' %}">Tutorials</a></li>
-  <li class="breadcrumb-item active"><a href="{% url 'sessions' group %}">{{group}}</a></li>
-  <li class="breadcrumb-item active">{{date}}</li>
+  <li class="breadcrumb-item active"><a href="{% url 'sessions' session.tutorial.group %}">{{session.tutorial.group}}</a></li>
+  <li class="breadcrumb-item active">{{session.date}}</li>
 {% endblock %}
 
 {% block content %}
@@ -15,12 +15,16 @@
       </tr>
     </thead>
 	<tbody>
-      {% for student in students %}
+      {% for attendance in attendances %}
       <tr>
         <td>
-          {{student.nusid}}
+          {{attendance.student.nusid}}
         </td>
-          <td class="align-middle">{{student.get_attendance}}</td>
+          {% if attendance.attended %}
+            <td class="align-middle">1</td>
+          {% else %}
+            <td class="align-middle">0</td>
+          {% endif %}
       </tr>
       {% endfor %}
     </tbody>

@@ -7,7 +7,6 @@ from django.views.generic.list import ListView
 from .forms import ImageForm
 from .models import Tutorial, Student, Session, Attendance
 
-
 class TutorialListView(ListView):
     model = Tutorial
     context_object_name = 'tutorials'
@@ -30,16 +29,12 @@ def attlist(request, group, date):
 			i = Session.objects.get(date=date)
 			i.image = form.cleaned_data['image']
 			i.save()
-	students = Student.objects.filter(tutorial__group=group).order_by('nusid')
-	sessions = Session.objects.filter(tutorial__group=group, date=date)
-	attendances = Attendance.objects.filter(session__date=date, session__tutorial__group=group)
+	session = Session.objects.get(tutorial__group=group, date=date)
+	attendances = Attendance.objects.filter(session=session)
 
 	return render(request, 'attlist.html', {
-		'students' : students,
-		'sessions' : sessions,
+		'session' : session,
 		'attendances' : attendances,
-		'group' : group,
-		'date' : date,
 		"form" : form
 	})
 
