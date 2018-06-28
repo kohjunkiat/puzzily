@@ -23,9 +23,9 @@ def sessions(request, group):
 	})
 
 def attlist(request, group, date):
-	form = ImageForm()
+	form = ImageForm(request.POST or None, request.FILES or None)
 	if request.method == 'POST':
-		form = ImageForm(request.POST, request.FILES)
+
 		if form.is_valid():
 			i = Session.objects.get(date=date)
 			i.image = form.cleaned_data['image']
@@ -49,17 +49,3 @@ def search(request):
 	else:
 		tutorials = Tutorial.objects.order_by('module', 'group')
 	return render(request, 'home.html', {'tutorials': tutorials})
-
-def upload(request):
-	if request.method == 'POST':
-		form = ImageForm(request.POST, request.FILES)
-		if form.is_valid():
-			i = Session.objects.get(date=date)
-			i.image = form.cleaned_data['image']
-			i.save()
-			return redirect('home')
-	else:
-		form = ImageForm()
-	return render(request, 'attlist.html', {
-		'form': form
-		})

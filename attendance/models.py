@@ -6,7 +6,7 @@ class Tutorial(models.Model):
 	group = models.CharField(max_length=30, unique=True)
 
 	def __str__(self):
-		return self.group
+		return self.module + self.group
 
 	def get_students_count(self):
 		return Student.objects.filter(tutorial=self).count()
@@ -22,6 +22,16 @@ class Student(models.Model):
 	def __str__(self):
 		return self.nusid
 
+	def get_attendance(self):
+		try:
+			attendance = Attendance.objects.get(student=self)
+			if attendance.attended == True:
+				return 1
+			else:
+				return 0
+		except Attendance.DoesNotExist:
+			return 0
+
 class Session(models.Model):
 	date = models.DateTimeField()
 	tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
@@ -29,9 +39,6 @@ class Session(models.Model):
 
 	def __str__(self):
 		return self.tutorial.module + ', ' + self.tutorial.group + ', ' + str(self.date)
-
-class Photo(models.Model):
-	image = models.ImageField(default='default.png', upload_to='media/')
 
 class Attendance(models.Model):
 	student = models.ForeignKey(Student, on_delete=models.CASCADE)
