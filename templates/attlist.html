@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block breadcrumb %}
-  <li class="breadcrumb-item active">Attendance</li>
+  <li class="breadcrumb-item active"><a href="{% url 'home' %}">Tutorials</a></li>
+  <li class="breadcrumb-item active"><a href="{% url 'sessions' group %}">{{group}}</a></li>
+  <li class="breadcrumb-item active">{{date}}</li>
 {% endblock %}
 
 {% block content %}
@@ -9,9 +11,7 @@
     <thead class="thead-dark">
       <tr>
         <th>Student ID</th>
-        {% for session in sessions %}
-        <th>{{session.date}}</th>
-        {% endfor %}
+        <th>Attendance</th>
       </tr>
     </thead>
 	<tbody>
@@ -20,11 +20,14 @@
         <td>
           {{student.nusid}}
         </td>
-        {% for session in sessions %}
         <td class="align-middle">0</td>
-        {% endfor %}
       </tr>
       {% endfor %}
     </tbody>
   </table>
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit"><i class="icon-save"></i>Upload</button>
+  </form>
 {% endblock %}

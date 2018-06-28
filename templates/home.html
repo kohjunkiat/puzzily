@@ -24,7 +24,7 @@
       {% for tutorial in tutorials %}
       <tr>
         <td>
-          <a href="{% url 'attlist' tutorial.group %}">{{ tutorial.group}}</a>
+          <a href="{% url 'sessions' tutorial.group %}">{{ tutorial.group}}</a>
           <small class="text-muted d-block">{{tutorial.module}}
           </small>
         </td>
@@ -36,9 +36,3 @@
     </tbody>
   </table>
 {% endblock %}
-
-<!-- <form id="searchform" action="{% url 'home' %}" method="get" accept-charset="utf-8">
-          <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
-            <button type="submit" class="btn btn-light">
-              <i class="fa fa-search"></i>
-            </button></form> -->

@@ -17,6 +17,7 @@ class Tutorial(models.Model):
 class Student(models.Model):
 	nusid = models.CharField(max_length=30, unique=True)
 	tutorial = models.ManyToManyField(Tutorial)
+	profilepic = models.ImageField(upload_to='profile', default='default.png')
 
 	def __str__(self):
 		return self.nusid
@@ -24,7 +25,15 @@ class Student(models.Model):
 class Session(models.Model):
 	date = models.DateTimeField()
 	tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
+	image = models.ImageField(upload_to='session_image', default='default.png')
 
 	def __str__(self):
 		return self.tutorial.module + ', ' + self.tutorial.group + ', ' + str(self.date)
-		 # + ', ' + str(self.time)
+
+class Photo(models.Model):
+	image = models.ImageField(default='default.png', upload_to='media/')
+
+class Attendance(models.Model):
+	student = models.ForeignKey(Student, on_delete=models.CASCADE)
+	session = models.ForeignKey(Session, on_delete=models.CASCADE)
+	attended = models.BooleanField(default=False)
