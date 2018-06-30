@@ -7,6 +7,8 @@ from django.views.generic.list import ListView
 from .forms import ImageForm, TutorialForm, SessionForm
 from .models import Tutorial, Student, Session, Attendance
 
+import boto3
+
 class TutorialListView(ListView):
     model = Tutorial
     context_object_name = 'tutorials'
@@ -28,12 +30,15 @@ def attlist(request, group, date):
 		if form.is_valid():
 			i = Session.objects.get(date=date)
 			i.image = form.cleaned_data['image']
+			i.uploaded = True
 			i.save()
 	session = Session.objects.get(tutorial__group=group, date=date)
+	students = Student.objects.filter(tutorial__group=group)
 	attendances = Attendance.objects.filter(session=session)
 
 	return render(request, 'attlist.html', {
 		'session' : session,
+		'students' : students,
 		'attendances' : attendances,
 		"form" : form
 	})
@@ -70,3 +75,22 @@ def AddSession(request):
 	return render(request, 'session_form.html', {
 			"form" : form
 		})
+
+# def rekog(request):
+# 	rekognition = boto3.client("rekognition")
+# 	response = rekognition.compare_faces(
+# 	    SourceImage={
+# 			"S3Object": {
+# 				"Bucket": 'puzzily',
+# 				"Name": student.profilepic,
+# 			}
+# 		},
+# 		TargetImage={
+# 			"S3Object": {
+# 				"Bucket": 'puzzily',
+# 				"Name": session.image,
+# 			}
+# 		},
+# 	)
+# 	sim = response['FaceMatches']['Similarity']
+

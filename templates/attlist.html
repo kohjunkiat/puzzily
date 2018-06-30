@@ -20,6 +20,8 @@
         <td>
           {{attendance.student.nusid}}
         </td>
+          {{session.image.name }}
+          {{ attendance.rekog }}
           {% if attendance.attended %}
             <td class="align-middle">1</td>
           {% else %}
@@ -29,9 +31,11 @@
       {% endfor %}
     </tbody>
   </table>
-  <form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-primary" type="submit"><i class="icon-save"></i>Upload</button>
-  </form>
+  {% if not session.uploaded %}
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary" type="submit"><i class="icon-save"></i>Upload</button>
+    </form>
+  {% endif %}
 {% endblock %}
