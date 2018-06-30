@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from django.views import generic
 from django.views.generic.list import ListView
 
-from .forms import ImageForm
+from .forms import ImageForm, TutorialForm, SessionForm
 from .models import Tutorial, Student, Session, Attendance
 
 class TutorialListView(ListView):
@@ -44,3 +44,29 @@ def search(request):
 	else:
 		tutorials = Tutorial.objects.order_by('module', 'group')
 	return render(request, 'home.html', {'tutorials': tutorials})
+
+def AddTutorial(request):
+	form = TutorialForm(request.POST or None, request.FILES or None)
+	if request.method == "POST":
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.save()
+			return redirect('home')
+	else:
+		form = TutorialForm()
+	return render(request, 'tutorial_form.html', {
+			"form" : form
+		})
+
+def AddSession(request):
+	form = SessionForm(request.POST or None, request.FILES or None)
+	if request.method == "POST":
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.save()
+			return redirect('home')
+	else:
+		form = SessionForm()
+	return render(request, 'session_form.html', {
+			"form" : form
+		})

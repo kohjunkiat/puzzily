@@ -29,6 +29,8 @@ urlpatterns = [
     path('', login_required(views.TutorialListView.as_view()), name='home'),
     path('<slug:group>', views.sessions, name='sessions'),
     path('search/', views.search, name='search'),
+    path('addtutorial/', views.AddTutorial, name='addtutorial'),
+    path('addsession/', views.AddSession, name='addsession'),
     path('<slug:group>/<str:date>', views.attlist, name='attlist'),
     path('signup/', accounts_views.signup, name='signup'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),

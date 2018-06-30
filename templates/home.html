@@ -11,13 +11,15 @@
         <th>Tutorial Group</th>
         <th>Sessions</th>
         <th>Students</th>
-        <th><div class="search-container">
-    <form action="{% url 'search' %}" method='get'>
-      {% csrf_token %}
-      <input type="text" placeholder="Search" name="query">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-  </div></th>
+        <th>
+          <div class="search-container">
+            <form action="{% url 'search' %}" method='get'>
+              {% csrf_token %}
+              <input type="text" placeholder="Search" name="query">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -35,4 +37,5 @@
       {% endfor %}
     </tbody>
   </table>
+  <a class="btn btn-dark" href="{% url 'addtutorial' %}" role="button">Add Tutorial</a>
 {% endblock %}

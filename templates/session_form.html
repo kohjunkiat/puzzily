@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Add Session</li>
+{% endblock %}
+
+{% block content %}
+	<form method="POST" action=''>
+	{% csrf_token %}
+	{{form.as_p}}
+	<input type="submit" value="Add Session"/>
+{% endblock %}
