@@ -20,13 +20,12 @@
         <td>
           {{attendance.student.nusid}}
         </td>
-          {{session.image.name }}
-          {{ attendance.rekog }}
-          {% if attendance.attended %}
-            <td class="align-middle">1</td>
-          {% else %}
-            <td class="align-middle">0</td>
-          {% endif %}
+        {{ attendance.rekog }}
+        {% if attendance.attended %}
+          <td class="align-middle">1</td>
+        {% else %}
+          <td class="align-middle">0</td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>

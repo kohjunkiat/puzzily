@@ -38,27 +38,28 @@ class Attendance(models.Model):
 	attended = models.BooleanField(default=False)
 
 	def rekog(self):
-		rekognition = boto3.client("rekognition")
+		rekognition = boto3.client("rekognition",'us-east-1')
 		response = rekognition.compare_faces(
+			SimilarityThreshold=50,
 		    SourceImage={
 				"S3Object": {
 					"Bucket": 'puzzily',
-					"Name": 'do.jpg',
+					"Name": 'media/' + self.student.profilepic.name,
 				}
 			},
 			TargetImage={
 				"S3Object": {
 					"Bucket": 'puzzily',
-					"Name": 'try.jpg',
+					"Name": 'media/' + self.session.image.name,
 				}
 			},
 		)
-		sim = response['FaceMatches']['Similarity']
-		if sim > 0.5:
-			self.attended = True
-			self.save(update_fields=['attended'])
-			return
-		else:
-			self.attended = False
-			self.save(update_fields=['attended'])
-			return
+		for faceMatch in response['FaceMatches']:
+			sim = faceMatch['Similarity']
+			if sim > 0.5:
+				self.attended = True
+				self.save(update_fields=['attended'])
+			else:
+				self.attended = False
+				self.save(update_fields=['attended'])
+		return
