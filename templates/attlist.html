@@ -20,7 +20,9 @@
         <td>
           {{attendance.student.nusid}}
         </td>
-        {{ attendance.rekog }}
+        {% if not session.attendance_taken %}
+          {{ attendance.rekog|default_if_none:""  }}
+        {% endif %}
         {% if attendance.attended %}
           <td class="align-middle">1</td>
         {% else %}

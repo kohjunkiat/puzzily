@@ -25,15 +25,19 @@ def sessions(request, group):
 
 def attlist(request, group, date):
 	form = ImageForm(request.POST or None, request.FILES or None)
-	if request.method == 'POST':
+	session = Session.objects.get(tutorial__group=group, date=date)
+	students = Student.objects.filter(tutorial__group=group)
 
+	if request.method == 'POST':
 		if form.is_valid():
-			i = Session.objects.get(date=date)
+			i = Session.objects.get(tutorial__group=group, date=date)
 			i.image = form.cleaned_data['image']
 			i.uploaded = True
 			i.save()
-	session = Session.objects.get(tutorial__group=group, date=date)
-	students = Student.objects.filter(tutorial__group=group)
+			for student in students:
+				a = Attendance(student=student, session=session, attended=False)
+				a.save()
+				
 	attendances = Attendance.objects.filter(session=session)
 
 	return render(request, 'attlist.html', {
@@ -75,22 +79,4 @@ def AddSession(request):
 	return render(request, 'session_form.html', {
 			"form" : form
 		})
-
-# def rekog(request):
-# 	rekognition = boto3.client("rekognition")
-# 	response = rekognition.compare_faces(
-# 	    SourceImage={
-# 			"S3Object": {
-# 				"Bucket": 'puzzily',
-# 				"Name": student.profilepic,
-# 			}
-# 		},
-# 		TargetImage={
-# 			"S3Object": {
-# 				"Bucket": 'puzzily',
-# 				"Name": session.image,
-# 			}
-# 		},
-# 	)
-# 	sim = response['FaceMatches']['Similarity']
 

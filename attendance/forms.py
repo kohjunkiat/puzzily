@@ -22,5 +22,4 @@ class SessionForm(forms.ModelForm):
 		fields = [
 			"date",
 			"tutorial",
-			"image",
 		]

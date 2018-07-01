@@ -28,6 +28,7 @@ class Session(models.Model):
 	tutorial = models.ForeignKey(Tutorial, on_delete=models.CASCADE)
 	image = models.ImageField(upload_to='session_image', default='default.png')
 	uploaded = models.BooleanField(default=False)
+	attendance_taken = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.tutorial.module + ', ' + self.tutorial.group + ', ' + str(self.date)
@@ -62,4 +63,6 @@ class Attendance(models.Model):
 			else:
 				self.attended = False
 				self.save(update_fields=['attended'])
+		self.session.attendance_taken = True
+		self.session.save(update_fields=['attendance_taken'])
 		return
