@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'orbital.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default=config('CLEARDB_DATABASE_URL')
         )
 }
 
