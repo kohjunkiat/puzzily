@@ -93,9 +93,9 @@ WSGI_APPLICATION = 'orbital.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_627a15130df64af'
-        'USER': 'b34044567f4184'
-        'PASSWORD': '5bf87ac6'
+        'NAME': 'heroku_627a15130df64af',
+        'USER': 'b34044567f4184',
+        'PASSWORD': '5bf87ac6',
         'HOST':'us-cdbr-iron-east-04.cleardb.net'
     }
 }
