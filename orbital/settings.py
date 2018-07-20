@@ -83,26 +83,26 @@ WSGI_APPLICATION = 'orbital.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'orbital',
-            'PASSWORD': '',
-            'USER': 'root',
-            'HOST': 'localhost',
-
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'heroku_627a15130df64af',
-#         'USER': 'b34044567f4184',
-#         'PASSWORD': '5bf87ac6',
-#         'HOST':'us-cdbr-iron-east-04.cleardb.net'
+#             'NAME': 'orbital',
+#             'PASSWORD': '',
+#             'USER': 'root',
+#             'HOST': 'localhost',
+
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'heroku_627a15130df64af',
+        'USER': 'b34044567f4184',
+        'PASSWORD': '5bf87ac6',
+        'HOST':'us-cdbr-iron-east-04.cleardb.net'
+    }
+}
 
 
 # Password validation
