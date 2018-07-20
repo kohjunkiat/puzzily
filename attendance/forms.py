@@ -14,6 +14,7 @@ class TutorialForm(forms.ModelForm):
 		fields = [
 			"module",
 			"group",
+			"students",
 		]
 
 class SessionForm(forms.ModelForm):

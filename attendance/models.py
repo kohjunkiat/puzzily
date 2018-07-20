@@ -5,6 +5,7 @@ import boto3
 class Tutorial(models.Model):
 	module = models.CharField(max_length=30)
 	group = models.CharField(max_length=30, unique=True)
+	student = models.ManyToManyField(Student)
 
 	def __str__(self):
 		return self.module + self.group
