@@ -5,7 +5,7 @@ import boto3
 class Tutorial(models.Model):
 	module = models.CharField(max_length=30)
 	group = models.CharField(max_length=30, unique=True)
-	student = models.ManyToManyField('Student')
+	student = models.ManyToManyField('Student', related_name='tutorial_student')
 
 	def __str__(self):
 		return self.module + self.group
@@ -18,7 +18,7 @@ class Tutorial(models.Model):
 
 class Student(models.Model):
 	nusid = models.CharField(max_length=30, unique=True)
-	tutorial = models.ManyToManyField(Tutorial)
+	tutorial = models.ManyToManyField(Tutorial, related_name='student_tutorial')
 	profilepic = models.ImageField(upload_to='profile', default='default.png')
 
 	def __str__(self):
