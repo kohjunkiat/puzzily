@@ -35,5 +35,7 @@ urlpatterns = [
     path('signup/', accounts_views.signup, name='signup'),
     path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('signup/student/', accounts_views.StudentSignUpView.as_view(), name='student_signup'),
+    path('signup/tutor/', accounts_views.TutorSignUpView.as_view(), name='tutor_signup'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

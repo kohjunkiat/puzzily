@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <div class="container">
+    <h2>Sign up as a {{ user_type }}</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% include 'includes/form.html' %}
+      <button type="submit" class="btn btn-primary">Create an account</button>
+    </form>
+  </div>
+{% endblock %}

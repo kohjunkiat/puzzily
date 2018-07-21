@@ -1,6 +1,8 @@
 from django.db import models
 import boto3
 
+from accounts.models import User
+
 # Create your models here.
 class Tutorial(models.Model):
 	module = models.CharField(max_length=30)
@@ -17,12 +19,13 @@ class Tutorial(models.Model):
 		return Session.objects.filter(tutorial=self).count()
 
 class Student(models.Model):
-	nusid = models.CharField(max_length=30, unique=True)
-	tutorial = models.ManyToManyField(Tutorial, related_name='student_tutorial')
-	profilepic = models.ImageField(upload_to='profile', default='default.png')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    nusid = models.CharField(max_length=30, unique=True)
+    tutorial = models.ManyToManyField(Tutorial, related_name='student_tutorial')
+    profilepic = models.ImageField(upload_to='profile', default='default.png')
 
-	def __str__(self):
-		return self.nusid
+    def __str__(self):
+    	return self.nusid
 
 class Session(models.Model):
 	date = models.DateTimeField()
@@ -67,3 +70,4 @@ class Attendance(models.Model):
 		self.session.attendance_taken = True
 		self.session.save(update_fields=['attendance_taken'])
 		return
+

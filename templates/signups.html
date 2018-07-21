@@ -1,12 +1,8 @@
 {% extends 'base.html' %}
 
 {% block body %}
-  <div class="container">
-    <h2>Sign up</h2>
-    <form method="post" novalidate>
-      {% csrf_token %}
-      {% include 'includes/form.html' %}
-      <button type="submit" class="btn btn-primary">Create an account</button>
-    </form>
-  </div>
+	<div class="container" style="top:50%">
+		<a class="btn btn-dark" href="{% url 'student_signup' %}" role="button">Sign Up as Student</a>
+		<a class="btn btn-dark" href="{% url 'tutor_signup' %}" role="button">Sign Up as Tutor</a>
+	</div>
 {% endblock %}
