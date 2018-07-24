@@ -60,6 +60,7 @@ def AddTutorial(request):
 		if form.is_valid():
 			instance = form.save(commit=False)
 			instance.save()
+			form.save_m2m()
 			return redirect('home')
 	else:
 		form = TutorialForm()

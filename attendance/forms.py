@@ -1,5 +1,6 @@
 from django import forms
-from attendance.models import Session, Tutorial
+from django.db import transaction
+from attendance.models import Session, Tutorial, Student
 
 class ImageForm(forms.ModelForm):
     class Meta:
@@ -9,6 +10,10 @@ class ImageForm(forms.ModelForm):
     	]
 
 class TutorialForm(forms.ModelForm):
+	student = forms.ModelMultipleChoiceField(
+	        queryset=Student.objects.all(),
+        	widget=forms.CheckboxSelectMultiple,
+		)
 	class Meta:
 		model = Tutorial
 		fields = [

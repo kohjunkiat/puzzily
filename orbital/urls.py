@@ -27,6 +27,7 @@ urlpatterns = [
 	# path('attendance/', include('attendance.urls')),
 	# path('accounts/', include('accounts.urls')),
     path('', login_required(views.TutorialListView.as_view()), name='home'),
+    # path('', views.tutoriallist, name='tutoriallist'),
     path('<slug:group>', views.sessions, name='sessions'),
     path('search/', views.search, name='search'),
     path('addtutorial/', views.AddTutorial, name='addtutorial'),

@@ -48,7 +48,3 @@ class TutorSignUpView(CreateView):
         user = form.save()
         login(self.request, user)
         return redirect('home')
-
-# student = Student.objects.get(user=self)
-# student.profilepic = form.cleaned_data['profilepic']
-# student.save()

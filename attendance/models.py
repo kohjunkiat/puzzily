@@ -13,7 +13,7 @@ class Tutorial(models.Model):
 		return self.module + self.group
 
 	def get_students_count(self):
-		return Student.objects.filter(tutorial=self).count()
+		return self.student.all().count()
 
 	def get_sessions_count(self):
 		return Session.objects.filter(tutorial=self).count()
