@@ -20,6 +20,7 @@ class Tutorial(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    name = models.CharField(max_length=30)
     nusid = models.CharField(max_length=30, unique=True)
     tutorial = models.ManyToManyField(Tutorial, related_name='student_tutorial')
     profilepic = models.ImageField(upload_to='profile', default='default.png')

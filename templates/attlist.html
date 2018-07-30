@@ -10,6 +10,8 @@
   <table class="table">
     <thead class="thead-dark">
       <tr>
+        <th>Profile Pic</th>
+        <th>Student Name</th>
         <th>Student ID</th>
         <th>Attendance</th>
       </tr>
@@ -17,16 +19,22 @@
 	<tbody>
       {% for attendance in attendances %}
       <tr>
-        <td>
+        <td class="align-middle">
+          <img src="{{attendance.student.profilepic.url}}" height="90" width="80px">
+        </td>
+        <td class="align-middle">
+          {{attendance.student.name}}
+        </td>
+        <td class="align-middle">
           {{attendance.student.nusid}}
         </td>
         {% if not session.attendance_taken %}
           {{ attendance.rekog|default_if_none:""  }}
         {% endif %}
         {% if attendance.attended %}
-          <td class="align-middle">1</td>
+          <td class="align-middle" style="colour:red;">Attended</td>
         {% else %}
-          <td class="align-middle">0</td>
+          <td class="align-middle" style="colour:red;">Absent</td>
         {% endif %}
       </tr>
       {% endfor %}
@@ -38,5 +46,15 @@
       {{ form.as_p }}
       <button class="btn btn-primary" type="submit"><i class="icon-save"></i>Upload</button>
     </form>
+  {% else %}
+    <button class="btn btn-primary" type="button" onclick="showPicture()">View Photo</button><br>
+    <img id="photo" style="display: none;" src="{{session.image.url}}" alt="Class Photo"> <br>
+    <script type="text/javascript">
+      function showPicture() { 
+        if (document.getElementById("photo").style.display == "inline-block") {
+          document.getElementById("photo").style.display = "none";
+        } else document.getElementById("photo").style.display = "inline-block";
+      }
+    </script>
   {% endif %}
 {% endblock %}

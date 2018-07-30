@@ -16,9 +16,14 @@ class StudentSignUpForm(UserCreationForm):
         max_length=30, 
     )
 
+    name = forms.CharField(
+        label="Full Name",
+        max_length=30, 
+    )
+
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ("nusid", "username", "password1", "password2", "profilepic")
+        fields = ("nusid", "name", "username", "password1", "password2", "profilepic")
 
     @transaction.atomic
     def save(self):
@@ -26,6 +31,7 @@ class StudentSignUpForm(UserCreationForm):
         user.is_student = True
         user.save()
         student = Student.objects.create(user=user)
+        student.name = self.cleaned_data['name']
         student.nusid = self.cleaned_data['nusid']
         student.profilepic = self.cleaned_data['profilepic']
         student.save()

@@ -26,7 +26,8 @@ def sessions(request, group):
 def attlist(request, group, date):
 	form = ImageForm(request.POST or None, request.FILES or None)
 	session = Session.objects.get(tutorial__group=group, date=date)
-	students = Student.objects.filter(tutorial__group=group)
+	tutorial = Tutorial.objects.get(group=group)
+	students = tutorial.student.all()
 
 	if request.method == 'POST':
 		if form.is_valid():
@@ -74,7 +75,9 @@ def AddSession(request):
 		if form.is_valid():
 			instance = form.save(commit=False)
 			instance.save()
-			return redirect('home')
+			session = Session.objects.get(tutorial=form.cleaned_data['tutorial'], date=form.cleaned_data['date'])
+			group = session.tutorial.group
+			return redirect('sessions', group=group)
 	else:
 		form = SessionForm()
 	return render(request, 'session_form.html', {
