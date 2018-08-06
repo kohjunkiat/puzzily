@@ -28,7 +28,7 @@ def attlist(request, group, date):
 	session = Session.objects.get(tutorial__group=group, date=date)
 	tutorial = Tutorial.objects.get(group=group)
 	students = tutorial.student.all()
-
+	
 	if request.method == 'POST':
 		if form.is_valid():
 			i = Session.objects.get(tutorial__group=group, date=date)
@@ -40,6 +40,9 @@ def attlist(request, group, date):
 				a.save()
 				
 	attendances = Attendance.objects.filter(session=session)
+	session = Session.objects.get(tutorial__group=group, date=date)
+	tutorial = Tutorial.objects.get(group=group)
+	students = tutorial.student.all()
 
 	return render(request, 'attlist.html', {
 		'session' : session,
